@@ -9,12 +9,12 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.show', compact('books'));
+        return view('book.show', compact('books'));
     }
 
     public function create()
     {
-        return view('books.create');
+        return view('book.create');
     }
 
     public function store(Request $request)
