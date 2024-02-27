@@ -19,13 +19,23 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-            $book = Book::create($request->all());
-            return redirect()->route('books.show');
+//            $book = Book::create($request->all());
+//            return redirect()->route('books.show');
+
+//        dd($request->all());
+        try {
+            $bookData = $request->only([
+                'title','author','quantity','genre','publication_year','isbn']);
+            return response()->json(['success' => true, 'message' => 'Book is Sucessfully Added!', 'book_id' => $book->id]);
+        } catch (\Exception $exception) {
+            return response()->json(['success' => false, 'error' => $exception->getMessage()]);
+        }
     }
 
-    public function show(string $id)
+    public function show($id)
     {
-        return view('books.view', compact('book'));
+        $book = Book::find($id);
+        return view('book.view', ['book' => $book])->with('books', $book);
     }
 
     public function edit(string $id)

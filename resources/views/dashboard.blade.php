@@ -67,8 +67,8 @@
                 Book Management
             </button>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="/create">Add Book</a></li>
-                <li><a class="dropdown-item" href="#">View Books</a></li>
+                <li><a class="dropdown-item active" href="/book/create">Add Book</a></li>
+                <li><a class="dropdown-item" href="book/view">View Books</a></li>
                 <li><a class="dropdown-item" href="#">Update Book Details</a></li>
                 <li><a class="dropdown-item" href="#">Destroy</a></li>
             </ul>

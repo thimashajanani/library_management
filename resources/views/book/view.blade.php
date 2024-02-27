@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card bg-light mb-3">
-                                    <div class="card-header">Book Details/div>
+                                    <div class="card-header">Book Details</div>
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong>Title:</strong> {{ $member->title}}</li>
