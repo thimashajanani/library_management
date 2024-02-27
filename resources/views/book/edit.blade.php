@@ -69,7 +69,7 @@
                             timer: 1500
                         }).then(() => {
                             //
-                            window.location.href = "{{route('students.index')}}"
+                            window.location.href = "{{route('books.index')}}"
                         });
                     },
                     error: function (xhr, status, error) {
