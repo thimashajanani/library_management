@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -19,14 +21,12 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-//            $book = Book::create($request->all());
-//            return redirect()->route('books.show');
-
-//        dd($request->all());
         try {
             $bookData = $request->only([
-                'title','author','quantity','genre','publication_year','isbn']);
-            return response()->json(['success' => true, 'message' => 'Book is Sucessfully Added!', 'book_id' => $book->id]);
+                'title', 'author', 'quantity', 'genre', 'publication_year', 'isbn'
+            ]);
+            $book = Book::create($bookData);
+            return response()->json(['success' => true, 'message' => 'Book is Successfully Added!', 'book_id' => $book->id]);
         } catch (\Exception $exception) {
             return response()->json(['success' => false, 'error' => $exception->getMessage()]);
         }
@@ -34,24 +34,45 @@ class BookController extends Controller
 
     public function show($id)
     {
-        $book = Book::find($id);
-        return view('book.view', ['book' => $book])->with('books', $book);
+        try {
+            $book = Book::findOrFail($id);
+            return response()->json($book);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 'Book not found']);
+        }
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
-        return view('books.edit', compact('book'));
+        try {
+            $book = Book::findOrFail($id);
+            return view('book.edit', compact('book'));
+        } catch (\Exception $exception) {
+            return back()->with('error', 'Failed to fetch book details.');
+        }
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $book->update($request->all());
-        return redirect()->route('books.show');
+        try {
+            $book = Book::findOrFail($id);
+            $book->update($request->all());
+            return redirect()->route('books.show', $book->id)->with('success', 'Book updated successfully');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return back()->with('error', 'Failed to update Book details. Please try again.');
+        }
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $book->delete();
-        return redirect()->route('books.show');
+        try {
+            $book = Book::findOrFail($id);
+            $book->delete();
+            return response()->json(['message' => 'Book deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete book.']);
+        }
     }
+
 }

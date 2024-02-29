@@ -60,32 +60,38 @@
 <body>
 
 <div class="sidebar">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbUOJye6SYiYCKVTYeYLzUme9zrc59H1SnzE0B6cK58V1al9bwlhP6-fwqjZ0kpp1mWnk&usqp=CAU" alt="Library Logo">
+    <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbUOJye6SYiYCKVTYeYLzUme9zrc59H1SnzE0B6cK58V1al9bwlhP6-fwqjZ0kpp1mWnk&usqp=CAU"
+        alt="Library Logo">
     <ul>
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                 Book Management
             </button>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="/book/create">Add Book</a></li>
-                <li><a class="dropdown-item" href="book/view">View Books</a></li>
-                <li><a class="dropdown-item" href="#">Update Book Details</a></li>
-                <li><a class="dropdown-item" href="#">Destroy</a></li>
+                <li><a class="dropdown-item active" href="{{route('books.create')}}">Add Book</a></li>
+                <li><a class="dropdown-item" href="{{route('books.index')}}">View Books</a></li>
+                <li><a class="dropdown-item" href="{{route('books.index')}}">Update and Delete Book Details</a></li>
             </ul>
         </div>
 
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">Member Management
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Member Management
             </button>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="/create">Add Member</a></li>
-                <li><a class="dropdown-item" href="# >View Members</a></li>
-                <li><a class="dropdown-item" href="#">Update Member and Delete Details</a></li>
+                <li><a class="dropdown-item active" href="{{route('members.create')}}">Add Member</a></li>
+                <li><a class="dropdown-item" href="{{route('members.index')}}">View Members</a></li>
+                <li><a class="dropdown-item" href="{{route('members.index')}}">Update Member and Delete Details</a></li>
             </ul>
         </div>
 
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">Book Lending Details</button>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false">Book Lending Details
+            </button>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
 
             </ul>
@@ -102,13 +108,13 @@
             <div class="col-md-4 mt-5">
                 <div class="summary-card">
                     <h5>Total Books</h5>
-                    <!-- Add your content here -->
+                    <p>{{ $bookCount }}</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="summary-card">
                     <h5>Total Members</h5>
-                    <!-- Add your content here -->
+                    <p>{{ $memberCount }}</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -128,6 +134,32 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 <!-- Font Awesome JS (optional) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    // Function to fetch updated book and member counts
+    function fetchCounts() {
+        $.ajax({
+            url: "{{ route('counts.fetch') }}",
+            type: "GET",
+            success: function(response) {
+                // Update book count
+                $('#bookCountCard p').text(response.bookCount);
+                // Update member count
+                $('#memberCountCard p').text(response.memberCount);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching counts: " + error);
+            }
+        });
+    }
+
+    // Initial fetch when the page loads
+    $(document).ready(function() {
+        fetchCounts();
+
+        // Set interval to refresh counts every 10 seconds (adjust as needed)
+        setInterval(fetchCounts, 10000);
+    });
+</script>
 
 </body>
 </html>

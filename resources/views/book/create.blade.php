@@ -1,58 +1,62 @@
-@extends('layouts.style')
+@extends('layouts.layout')
 @section('content')
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 24px
+        ;
+            font-weight: bold
+        ;
+            margin-bottom: 20px
+        ;
         }
     </style>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Add New Book</div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('books.store') }}" method="POST" id="myForm">>
-                        @csrf
-
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="author">Author</label>
-                            <input type="text" name="author" id="author" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity">Quantity</label>
-                            <input type="text" name="quantity" id="quantity" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="genre">Genre</label>
-                            <input type="text" name="genre" id="genre" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="publication_year">Publication Year</label>
-                            <input type="number" name="publication_year" id="publication_year" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="isbn">ISBN</label>
-                            <input type="text" name="isbn" id="isbn" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Book</button>
-                    </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Add New Book</div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('books.store') }}" id="myForm">
+                            @csrf
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" name="author" id="author" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="text" name="quantity" id="quantity" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="genre">Genre</label>
+                                <input type="text" name="genre" id="genre" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="publication_year">Publication Year</label>
+                                <input type="date" name="publication_year" id="publication_year" class="form-control"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="isbn">ISBN</label>
+                                <input type="text" name="isbn" id="isbn" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Book</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
-@section('style')
+
+@section('script')
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
     <script>
@@ -66,7 +70,7 @@
                     data: formData,
                     success: function (response) {
                         Swal.fire({
-                            title: 'Sucessfully',
+                            title: 'Successfully',
                             text: response.message,
                             icon: 'success',
                             showCancelButton: true,
@@ -88,7 +92,7 @@
                             buttonsStyling: false,
                             showCloseButton: true
                         }).then(() => {
-                            // location.reload();
+                            location.reload();
                         });
                     }
                 });

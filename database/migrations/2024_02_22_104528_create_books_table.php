@@ -12,10 +12,10 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->integer('quantity');
-            $table->integer('genre');
+            $table->string('quantity');
+            $table->string('genre');
             $table->date('publication_year');
-            $table->integer('isbn')->unique();
+            $table->string('isbn')->unique();
             $table->timestamps();
         });
     }
