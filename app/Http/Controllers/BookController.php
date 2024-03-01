@@ -11,7 +11,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('book.show', compact('books'));
+        return response()->json($books);
     }
 
     public function create()
@@ -56,11 +56,19 @@ class BookController extends Controller
     {
         try {
             $book = Book::findOrFail($id);
-            $book->update($request->all());
-            return redirect()->route('books.show', $book->id)->with('success', 'Book updated successfully');
+            $book->title = $request->input('title');
+            $book->author = $request->input('author');
+            $book->quantity = $request->input('quantity');
+            $book->genre = $request->input('genre');
+            $book->publication_year = $request->input('publication_year');
+            $book->isbn = $request->input('isbn');
+
+            $book->save();
+
+            return redirect()->route('books.show', $book->id)->with('success', 'Student updated successfully');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return back()->with('error', 'Failed to update Book details. Please try again.');
+            return back()->with('error', 'Failed to update student details. Please try again.');
         }
     }
 
@@ -74,5 +82,4 @@ class BookController extends Controller
             return response()->json(['error' => 'Failed to delete book.']);
         }
     }
-
 }

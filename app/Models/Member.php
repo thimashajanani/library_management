@@ -16,5 +16,12 @@ class Member extends Model
         'gender',
         'phone_number',
     ];
-
+    public function bookLendings() {
+        return $this->hasMany(BookLending::class);
+    }
+    public function index()
+    {
+        $members = Member::all();
+        return response()->json($members);
+    }
 }

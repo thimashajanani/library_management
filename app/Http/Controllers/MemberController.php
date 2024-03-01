@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -10,15 +11,13 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::all();
-        return view('member.show', compact('members'));
+        return response()->json($members);
     }
-
 
     public function create()
     {
         return view('member.create');
     }
-
 
     public function store(Request $request)
     {
@@ -33,7 +32,6 @@ class MemberController extends Controller
         }
     }
 
-
     public function show($id)
     {
         try {
@@ -44,8 +42,7 @@ class MemberController extends Controller
         }
     }
 
-
-    public function edit( $id)
+    public function edit($id)
     {
         try {
             $member = Book::findOrFail($id);

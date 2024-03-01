@@ -60,7 +60,6 @@
                         <td>{{ $book->publication_year }}</td>
                         <td>{{ $book->isbn }}</td>
                         <td>
-                            {{--                    <button type="button" class="btn btn-primary btnView" data-id="{{ $book->id }}">View</button>--}}
                             <button class="btn btn-success btnEdit" data-id="{{ $book->id }}">Edit</button>
                             <button class="btn btn-danger btnDelete" data-id="{{ $book->id }}"
                                     onclick="return confirm('Are you sure you want to delete this book?')">Delete

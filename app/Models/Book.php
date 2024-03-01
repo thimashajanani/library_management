@@ -17,4 +17,13 @@ class Book extends Model
         'publication_year',
         'isbn',
         ];
+    public function bookLendings() {
+        return $this->hasMany(BookLending::class);
+    }
+
+    public function index()
+    {
+        $books = Book::all();
+        return response()->json($books);
+    }
 }

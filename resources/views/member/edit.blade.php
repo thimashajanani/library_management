@@ -17,36 +17,34 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Book Details Update</div>
+                    <div class="card-header">Member Details Update</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('books.update', ['book' => $book->id]) }}" id="updateForm">
+                        <form method="POST" action="{{ route('members.update', ['member' => $member->id]) }}" id="updateForm2">
                             @csrf
                             @method('PUT')
-
                             <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" id="title" class="form-control" required>
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="title" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="author">Author</label>
-                                <input type="text" name="author" id="author" class="form-control" required>
+                                <label for="address">Address</label>
+                                <input type="text" name="address" id="address" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="quantity">Quantity</label>
-                                <input type="text" name="quantity" id="quantity" class="form-control" required>
+                                <label for="age">Age</label>
+                                <input type="text" name="quantity" id="age" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="genre">Genre</label>
-                                <input type="text" name="genre" id="genre" class="form-control" required>
+                                <label for="gender">Gender</label>
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="publication_year">Publication Year</label>
-                                <input type="date" name="publication_year" id="publication_year" class="form-control"
-                                       required>
-                            </div>
-                            <div class="form-group">
-                                <label for="isbn">ISBN</label>
-                                <input type="text" name="isbn" id="isbn" class="form-control" required>
+                                <label for="number">Phone Number</label>
+                                <input type="text" name="phone_number" id="phone_number" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Update Book</button>
                         </form>
@@ -62,12 +60,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-            $('#updateForm').submit(function (e) {
+            $('#updateForm2').submit(function (e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
                 $.ajax({
                     type: 'POST',
-                    url : $('#updateForm').attr('action'),
+                    url : $('#updateForm2').attr('action'),
                     data: formData,
                     success: function (response) {
                         Swal.fire({
@@ -77,7 +75,7 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(() => {
-                            window.location.href = "{{ route('books.index') }}"; // Redirect to the books index page
+                            window.location.href = "{{ route('members.index') }}";
                         });
                     },
                     error: function (xhr, status, error) {
